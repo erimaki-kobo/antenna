@@ -1,89 +1,89 @@
 {
- "run_at": "2026-11-09T00:45:55+09:00",
+ "run_at": "2026-11-09T00:48:42+09:00",
  "sources": {
   "hn_front": {
    "ok": true,
    "got": 30,
-   "new": 30,
-   "sec": 0.5
+   "new": 1,
+   "sec": 0.3
   },
   "hn_show": {
    "ok": true,
    "got": 50,
-   "new": 50,
+   "new": 0,
    "sec": 0.3
   },
   "hn_ask": {
    "ok": true,
    "got": 50,
-   "new": 50,
+   "new": 0,
    "sec": 0.3
   },
   "lobsters": {
    "ok": true,
    "got": 25,
-   "new": 25,
-   "sec": 0.3
+   "new": 0,
+   "sec": 0.5
   },
   "gh_trending": {
    "ok": true,
-   "got": 0,
-   "new": 0,
+   "got": 9,
+   "new": 9,
    "sec": 0.9
   },
   "gh_trending_python": {
    "ok": true,
-   "got": 0,
-   "new": 0,
-   "sec": 1.0
+   "got": 11,
+   "new": 8,
+   "sec": 0.9
   },
   "rel_vllm": {
    "ok": true,
    "got": 10,
-   "new": 10,
-   "sec": 1.2
+   "new": 0,
+   "sec": 1.0
   },
   "rel_llamacpp": {
    "ok": true,
    "got": 10,
-   "new": 10,
-   "sec": 0.7
+   "new": 1,
+   "sec": 0.8
   },
   "rel_sglang": {
    "ok": true,
    "got": 10,
-   "new": 10,
-   "sec": 3.5
+   "new": 0,
+   "sec": 2.7
   },
   "rel_ollama": {
    "ok": true,
    "got": 10,
-   "new": 10,
-   "sec": 2.1
+   "new": 0,
+   "sec": 0.3
   },
   "rel_pytorch": {
    "ok": true,
    "got": 10,
-   "new": 10,
-   "sec": 1.4
+   "new": 0,
+   "sec": 1.3
   },
   "rel_trtllm": {
    "ok": true,
    "got": 10,
-   "new": 10,
-   "sec": 3.1
+   "new": 0,
+   "sec": 3.5
   },
   "hf_models": {
    "ok": true,
    "got": 50,
-   "new": 50,
-   "sec": 0.1
+   "new": 5,
+   "sec": 0.2
   },
   "arxiv_cl": {
    "ok": true,
    "got": 0,
    "new": 0,
-   "sec": 0.3
+   "sec": 0.1
   },
   "arxiv_dc": {
    "ok": true,
@@ -100,176 +100,139 @@
   "devto_ai": {
    "ok": true,
    "got": 30,
-   "new": 30,
-   "sec": 0.1
+   "new": 0,
+   "sec": 0.2
   },
   "devto_python": {
    "ok": true,
    "got": 30,
-   "new": 24,
-   "sec": 0.1
+   "new": 0,
+   "sec": 0.0
   },
   "vllm_discuss": {
    "ok": true,
    "got": 30,
-   "new": 30,
+   "new": 0,
    "sec": 0.3
   },
   "so_vllm": {
    "ok": true,
-   "got": 0,
-   "new": 0,
-   "sec": 0.1
+   "got": 30,
+   "new": 30,
+   "sec": 0.2
+  },
+  "so_ollama": {
+   "ok": true,
+   "got": 30,
+   "new": 30,
+   "sec": 0.2
+  },
+  "so_llamacpp": {
+   "ok": true,
+   "got": 30,
+   "new": 30,
+   "sec": 0.2
   },
   "so_cuda": {
    "ok": true,
    "got": 50,
-   "new": 50,
-   "sec": 0.6
+   "new": 46,
+   "sec": 0.2
   },
-  "r_localllama": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/LocalLLaMA/new.json?limit=50",
-   "sec": 0.1
-  },
-  "r_ml": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/MachineLearning/new.json?limit=30",
-   "sec": 0.1
-  },
-  "r_selfhosted": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/selfhosted/new.json?limit=30",
-   "sec": 0.1
-  },
-  "r_sideproject": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/SideProject/new.json?limit=30",
-   "sec": 0.1
-  },
-  "r_smallbusiness": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/smallbusiness/new.json?limit=30",
-   "sec": 0.1
-  },
-  "r_entrepreneur": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/Entrepreneur/new.json?limit=30",
-   "sec": 0.1
-  },
-  "r_indiehackers": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/indiehackers/new.json?limit=30",
-   "sec": 0.1
-  },
-  "r_japanlife": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/japanlife/new.json?limit=30",
-   "sec": 0.1
-  },
-  "r_homelab": {
-   "ok": false,
-   "error": "HTTPError: 403 Client Error: Blocked for url: https://www.reddit.com/r/homelab/new.json?limit=30",
-   "sec": 0.1
+  "so_pytorch": {
+   "ok": true,
+   "got": 50,
+   "new": 46,
+   "sec": 0.2
   },
   "gh_issues_vllm": {
    "ok": true,
    "got": 9,
-   "new": 9,
+   "new": 0,
    "sec": 0.5
   },
   "gh_issues_llamacpp": {
    "ok": true,
    "got": 16,
-   "new": 16,
-   "sec": 0.5
+   "new": 0,
+   "sec": 0.6
   },
   "producthunt": {
    "ok": true,
    "got": 50,
-   "new": 50,
-   "sec": 0.2
-  },
-  "indiehackers": {
-   "ok": false,
-   "error": "HTTPError: 404 Client Error: Not Found for url: https://www.indiehackers.com/feed.xml",
+   "new": 0,
    "sec": 0.1
   },
   "freelancer_rss": {
    "ok": true,
    "got": 20,
-   "new": 20,
-   "sec": 0.2
+   "new": 0,
+   "sec": 0.1
   },
   "zenn": {
    "ok": true,
    "got": 20,
-   "new": 20,
+   "new": 0,
    "sec": 0.1
   },
   "qiita": {
    "ok": true,
    "got": 50,
-   "new": 50,
-   "sec": 1.6
+   "new": 1,
+   "sec": 1.4
   },
   "hatena_it": {
    "ok": true,
    "got": 30,
-   "new": 28,
-   "sec": 0.5
+   "new": 0,
+   "sec": 0.3
   },
   "nhk_main": {
    "ok": true,
    "got": 7,
-   "new": 7,
-   "sec": 0.6
+   "new": 0,
+   "sec": 0.7
   },
   "nhk_biz": {
    "ok": true,
    "got": 80,
-   "new": 80,
+   "new": 1,
    "sec": 0.2
-  },
-  "jnet21": {
-   "ok": false,
-   "error": "HTTPError: 404 Client Error: Not Found for url: https://j-net21.smrj.go.jp/rss/news.xml",
-   "sec": 1.9
   },
   "gtrends_jp": {
    "ok": true,
    "got": 10,
-   "new": 10,
-   "sec": 0.2
+   "new": 0,
+   "sec": 0.3
   },
   "gtrends_us": {
    "ok": true,
    "got": 10,
-   "new": 10,
+   "new": 0,
    "sec": 0.1
   },
   "wiki_top_ja": {
    "ok": false,
-   "error": "HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/ja.wikipedia/all-access/2026/11/08",
-   "sec": 0.2
+   "error": "HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/ja.wikipedia/all-access/2026/11/07",
+   "sec": 0.1
   },
   "wiki_top_en": {
    "ok": false,
-   "error": "HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2026/11/08",
+   "error": "HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2026/11/07",
    "sec": 0.1
   },
   "openai_news": {
    "ok": true,
    "got": 80,
-   "new": 80,
-   "sec": 0.3
+   "new": 0,
+   "sec": 0.4
   },
   "google_ai_blog": {
    "ok": true,
    "got": 20,
-   "new": 20,
+   "new": 0,
    "sec": 0.3
   }
  },
- "new_total": 799
+ "new_total": 208
 }
