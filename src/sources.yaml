@@ -110,15 +110,33 @@ sources:
     box_hint: main
   # --- 人が困っていること ---
   - id: so_vllm
-    name: Stack Overflow (vllm, llama.cpp, ollama)
+    name: Stack Overflow (vllm)
     type: json
-    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=vllm;llama.cpp;ollama&site=stackoverflow&pagesize=50
+    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=vllm&site=stackoverflow&pagesize=30
+    parser: stackexchange
+    box_hint: main
+  - id: so_ollama
+    name: Stack Overflow (ollama)
+    type: json
+    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=ollama&site=stackoverflow&pagesize=30
+    parser: stackexchange
+    box_hint: main
+  - id: so_llamacpp
+    name: Stack Overflow (llama-cpp-python)
+    type: json
+    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=llama-cpp-python&site=stackoverflow&pagesize=30
     parser: stackexchange
     box_hint: main
   - id: so_cuda
-    name: Stack Overflow (cuda, pytorch)
+    name: Stack Overflow (cuda)
     type: json
-    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=cuda;pytorch&site=stackoverflow&pagesize=50
+    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=cuda&site=stackoverflow&pagesize=50
+    parser: stackexchange
+    box_hint: main
+  - id: so_pytorch
+    name: Stack Overflow (pytorch)
+    type: json
+    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=pytorch&site=stackoverflow&pagesize=50
     parser: stackexchange
     box_hint: main
   - id: r_localllama
@@ -127,54 +145,63 @@ sources:
     url: https://www.reddit.com/r/LocalLLaMA/new.json?limit=50
     parser: reddit
     box_hint: main
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: r_ml
     name: r/MachineLearning new
     type: json
     url: https://www.reddit.com/r/MachineLearning/new.json?limit=30
     parser: reddit
     box_hint: main
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: r_selfhosted
     name: r/selfhosted new
     type: json
     url: https://www.reddit.com/r/selfhosted/new.json?limit=30
     parser: reddit
     box_hint: world
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: r_sideproject
     name: r/SideProject new
     type: json
     url: https://www.reddit.com/r/SideProject/new.json?limit=30
     parser: reddit
     box_hint: money
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: r_smallbusiness
     name: r/smallbusiness new
     type: json
     url: https://www.reddit.com/r/smallbusiness/new.json?limit=30
     parser: reddit
     box_hint: money
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: r_entrepreneur
     name: r/Entrepreneur new
     type: json
     url: https://www.reddit.com/r/Entrepreneur/new.json?limit=30
     parser: reddit
     box_hint: money
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: r_indiehackers
     name: r/indiehackers new
     type: json
     url: https://www.reddit.com/r/indiehackers/new.json?limit=30
     parser: reddit
     box_hint: money
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: r_japanlife
     name: r/japanlife new
     type: json
     url: https://www.reddit.com/r/japanlife/new.json?limit=30
     parser: reddit
     box_hint: jp
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: r_homelab
     name: r/homelab new
     type: json
     url: https://www.reddit.com/r/homelab/new.json?limit=30
     parser: reddit
     box_hint: world
+    enabled: false   # 11/9 GitHub Actions から 403（Reddit がデータセンターのIPを遮断）。別経路を検討
   - id: gh_issues_vllm
     name: vLLM issues (new)
     type: json
@@ -198,6 +225,7 @@ sources:
     type: rss
     url: https://www.indiehackers.com/feed.xml
     box_hint: money
+    enabled: false   # 11/9 404。正しいフィードを探す
   - id: freelancer_rss
     name: Freelancer.com projects (python)
     type: rss
@@ -242,6 +270,7 @@ sources:
     type: rss
     url: https://j-net21.smrj.go.jp/rss/news.xml
     box_hint: jp
+    enabled: false   # 11/9 404。正しいURLを探す
   # --- 世の中（主軸と無関係） ---
   - id: gtrends_jp
     name: Google Trends 急上昇（日本）
@@ -254,15 +283,15 @@ sources:
     url: https://trends.google.com/trending/rss?geo=US
     box_hint: world
   - id: wiki_top_ja
-    name: Wikipedia 日本語 閲覧上位（前日）
+    name: Wikipedia 日本語 閲覧上位（2日前。前日分は未集計のことがある）
     type: json
-    url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/ja.wikipedia/all-access/{Y}/{m}/{d_yesterday}
+    url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/ja.wikipedia/all-access/{Y}/{m}/{d_2ago}
     parser: wiki_top
     box_hint: world
   - id: wiki_top_en
-    name: Wikipedia 英語 閲覧上位（前日）
+    name: Wikipedia 英語 閲覧上位（2日前。前日分は未集計のことがある）
     type: json
-    url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/{Y}/{m}/{d_yesterday}
+    url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/{Y}/{m}/{d_2ago}
     parser: wiki_top
     box_hint: world
   - id: openai_news

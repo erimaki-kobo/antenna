@@ -125,8 +125,10 @@ def p_lobsters(src, resp):
 def p_gh_trending(src, resp):
     out = []
     txt = resp.text
-    for m in re.finditer(r'<h2 class="h3 lh-condensed">\s*<a href="/([^"]+)"', txt):
+    for m in re.finditer(r'<h2[^>]*>\s*<a[^>]*?href="/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)"', txt):
         repo = m.group(1).strip()
+        if repo.startswith(("login/", "features/", "sponsors/", "trending/")):
+            continue
         # 説明と★
         seg = txt[m.end(): m.end() + 3000]
         desc = re.search(r'<p class="col-9[^>]*>(.*?)</p>', seg, re.S)
@@ -226,8 +228,8 @@ PARSERS = {
 
 
 def expand_url(u: str) -> str:
-    y = now_jst() - dt.timedelta(days=1)
-    return (u.replace("{Y}", f"{y:%Y}").replace("{m}", f"{y:%m}").replace("{d_yesterday}", f"{y:%d}"))
+    y = now_jst() - dt.timedelta(days=2)  # Wikipedia の集計は1〜2日遅れる
+    return (u.replace("{Y}", f"{y:%Y}").replace("{m}", f"{y:%m}").replace("{d_2ago}", f"{y:%d}"))
 
 
 def fetch(src: dict) -> list[dict]:
