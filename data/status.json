@@ -1,70 +1,70 @@
 {
- "run_at": "2026-11-09T03:49:57+09:00",
+ "run_at": "2026-11-09T06:42:27+09:00",
  "sources": {
   "hn_front": {
    "ok": true,
    "got": 30,
-   "new": 8,
-   "sec": 0.2
+   "new": 12,
+   "sec": 0.3
   },
   "hn_show": {
    "ok": true,
    "got": 50,
-   "new": 25,
+   "new": 14,
    "sec": 0.3
   },
   "hn_ask": {
    "ok": true,
    "got": 50,
-   "new": 2,
+   "new": 5,
    "sec": 0.3
   },
   "lobsters": {
    "ok": true,
    "got": 25,
-   "new": 6,
-   "sec": 0.3
+   "new": 2,
+   "sec": 0.6
   },
   "gh_trending": {
    "ok": true,
    "got": 9,
    "new": 0,
-   "sec": 0.8
+   "sec": 1.0
   },
   "gh_trending_python": {
    "ok": true,
    "got": 11,
    "new": 0,
-   "sec": 1.0
+   "sec": 1.1
   },
   "rel_vllm": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 1.0
+   "sec": 1.5
   },
   "rel_llamacpp": {
    "ok": true,
    "got": 10,
-   "new": 2,
-   "sec": 0.7
+   "new": 0,
+   "sec": 0.9
   },
   "rel_sglang": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 3.1
+   "sec": 3.2
   },
   "rel_ollama": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.3
+   "sec": 0.4
   },
   "rel_pytorch": {
    "ok": true,
    "got": 10,
-   "new": 4,
+   "new": 2,
    "sec": 1.4
   },
   "rel_trtllm": {
@@ -76,134 +76,134 @@
   "hf_models": {
    "ok": true,
    "got": 50,
-   "new": 49,
-   "sec": 0.0
+   "new": 50,
+   "sec": 0.2
   },
   "arxiv_cl": {
    "ok": true,
    "got": 0,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.2
   },
   "arxiv_dc": {
    "ok": true,
    "got": 0,
    "new": 0,
-   "sec": 0.0
+   "sec": 0.1
   },
   "arxiv_pf": {
    "ok": true,
    "got": 0,
    "new": 0,
-   "sec": 0.0
+   "sec": 0.1
   },
   "devto_ai": {
    "ok": true,
    "got": 30,
-   "new": 19,
-   "sec": 0.0
+   "new": 17,
+   "sec": 0.2
   },
   "devto_python": {
    "ok": true,
    "got": 30,
-   "new": 9,
-   "sec": 0.1
+   "new": 25,
+   "sec": 0.2
   },
   "vllm_discuss": {
    "ok": true,
    "got": 30,
    "new": 1,
-   "sec": 0.2
+   "sec": 0.3
   },
   "so_vllm": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.3
   },
   "so_ollama": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.3
   },
   "so_llamacpp": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.3
   },
   "so_cuda": {
    "ok": true,
    "got": 50,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.2
   },
   "so_pytorch": {
    "ok": true,
    "got": 50,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.2
   },
   "gh_issues_vllm": {
    "ok": true,
-   "got": 11,
-   "new": 4,
-   "sec": 0.5
+   "got": 10,
+   "new": 3,
+   "sec": 0.7
   },
   "gh_issues_llamacpp": {
    "ok": true,
-   "got": 15,
-   "new": 0,
-   "sec": 0.5
+   "got": 16,
+   "new": 3,
+   "sec": 0.7
   },
   "producthunt": {
    "ok": true,
    "got": 50,
-   "new": 2,
-   "sec": 0.1
+   "new": 9,
+   "sec": 0.2
   },
   "freelancer_rss": {
    "ok": true,
    "got": 20,
-   "new": 0,
-   "sec": 0.2
+   "new": 2,
+   "sec": 0.3
   },
   "zenn": {
    "ok": true,
    "got": 20,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.2
   },
   "qiita": {
    "ok": true,
    "got": 50,
-   "new": 20,
-   "sec": 1.9
+   "new": 24,
+   "sec": 1.6
   },
   "hatena_it": {
    "ok": true,
    "got": 30,
-   "new": 4,
-   "sec": 0.4
+   "new": 2,
+   "sec": 0.2
   },
   "nhk_main": {
    "ok": true,
    "got": 7,
-   "new": 1,
-   "sec": 0.5
+   "new": 6,
+   "sec": 0.9
   },
   "nhk_biz": {
    "ok": true,
    "got": 80,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.2
   },
   "gtrends_jp": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.4
   },
   "gtrends_us": {
    "ok": true,
@@ -214,7 +214,7 @@
   "wiki_top_en": {
    "ok": false,
    "error": "HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2026/11/07",
-   "sec": 0.0
+   "sec": 0.1
   },
   "openai_news": {
    "ok": true,
@@ -226,8 +226,8 @@
    "ok": true,
    "got": 20,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.4
   }
  },
- "new_total": 156
+ "new_total": 177
 }
