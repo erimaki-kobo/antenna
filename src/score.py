@@ -255,6 +255,8 @@ def main() -> int:
     ap.add_argument("--dry", action="store_true", help="APIを呼ばず、箱は box_hint で埋める（検査用）")
     a = ap.parse_args()
     data, digest, docs = Path(a.data), Path(a.digest), Path(a.docs)
+    if a.dry:  # 検査モードは本番の出力を上書きしない
+        digest, docs = Path(str(digest) + "-dry"), Path(str(docs) + "-dry")
     for p in (digest, docs, data / "scored"):
         p.mkdir(parents=True, exist_ok=True)
 
@@ -266,9 +268,10 @@ def main() -> int:
     else:
         items = score_all(items)
 
-    with (data / "scored" / f"{a.day}.jsonl").open("w", encoding="utf-8") as f:
-        for r in items:
-            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    if not a.dry:
+        with (data / "scored" / f"{a.day}.jsonl").open("w", encoding="utf-8") as f:
+            for r in items:
+                f.write(json.dumps(r, ensure_ascii=False) + "\n")
     status = None
     sp = data / "status.json"
     if sp.exists():
