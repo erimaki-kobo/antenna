@@ -27,7 +27,7 @@ JST = dt.timezone(dt.timedelta(hours=9))
 API = "https://api.anthropic.com/v1/messages"
 MODEL = os.environ.get("ANTENNA_MODEL", "claude-haiku-5-5")
 MAX_ITEMS = int(os.environ.get("ANTENNA_MAX_ITEMS", "900"))
-BATCH = 25
+BATCH = 15
 BOXES = ["main", "money", "world", "drop"]
 BOX_JA = {"main": "主軸に関係（LLM推論・GPU・Python・再現性・トークナイザ）", "money": "金の匂い（誰かが払い始めた・困って探している）", "world": "意外・知らない話（主軸と無関係でよい）", "drop": "捨てる"}
 
@@ -92,7 +92,7 @@ def call_claude(batch: list[dict]) -> list[dict]:
         lines.append(json.dumps({"id": r["id"], "source": r["source_name"], "title": r["title"], "url": r["url"],
                                  "score": r.get("score"), "comments": r.get("comments"), "summary": (r.get("summary") or "")[:160]}, ensure_ascii=False))
     body = {
-        "model": MODEL, "max_tokens": 4000, "system": SYSTEM,
+        "model": MODEL, "max_tokens": 8000, "system": SYSTEM,
         "messages": [{"role": "user", "content": "記事:\n" + "\n".join(lines) + "\n\nJSON配列だけを返す。"}],
     }
     headers = {"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
@@ -102,12 +102,45 @@ def call_claude(batch: list[dict]) -> list[dict]:
             time.sleep(5 * (attempt + 1))
             continue
         resp.raise_for_status()
-        text = "".join(b.get("text", "") for b in resp.json().get("content", []))
-        s, e = text.find("["), text.rfind("]")
-        if s < 0 or e < 0:
-            raise ValueError("JSON配列が見つからない: " + text[:200])
-        return json.loads(text[s:e + 1])
+        data = resp.json()
+        text = "".join(b.get("text", "") for b in data.get("content", []))
+        return parse_array(text, truncated=(data.get("stop_reason") == "max_tokens"))
     raise RuntimeError("Claude API が応答しない")
+
+
+def parse_array(text: str, truncated: bool = False) -> list[dict]:
+    """JSON配列を読む。コードフェンスや途中切れがあっても、完全なオブジェクトだけ拾う。"""
+    t = text.strip()
+    if t.startswith("```"):
+        t = t.split("\n", 1)[1] if "\n" in t else t[3:]
+    t = t.replace("```", "")
+    s, e = t.find("["), t.rfind("]")
+    if s >= 0 and e > s and not truncated:
+        try:
+            return json.loads(t[s:e + 1])
+        except json.JSONDecodeError:
+            pass
+    # 途中切れ：{...} を1つずつ拾う
+    out = []
+    depth, start = 0, None
+    for i, ch in enumerate(t):
+        if ch == "{":
+            if depth == 0:
+                start = i
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0 and start is not None:
+                try:
+                    out.append(json.loads(t[start:i + 1]))
+                except json.JSONDecodeError:
+                    pass
+                start = None
+    if not out:
+        raise ValueError("JSON配列が見つからない: " + text[:200])
+    if truncated:
+        print(f"warn: 出力が途中で切れた。{len(out)}件だけ拾った", file=sys.stderr)
+    return out
 
 
 def score_all(items: list[dict]) -> list[dict]:
@@ -118,8 +151,8 @@ def score_all(items: list[dict]) -> list[dict]:
             res = call_claude(batch)
         except Exception as e:
             print(f"batch {i//BATCH} failed: {e}", file=sys.stderr)
-            for r in batch:
-                r.setdefault("box", "world"); r.setdefault("ja", r["title"][:40]); r.setdefault("novelty", 1); r.setdefault("kobo", ""); r["why"] = "採点失敗"
+            for r in batch:  # 採点できなかった物は「捨てる」側に置き、箱を汚さない
+                r.setdefault("box", "drop"); r.setdefault("ja", r["title"][:40]); r.setdefault("novelty", 1); r.setdefault("kobo", ""); r["why"] = "採点失敗"
             continue
         for s in res:
             r = by_id.get(s.get("id"))
