@@ -33,6 +33,9 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ANTENNA_MODEL: ${{ vars.ANTENNA_MODEL || 'claude-haiku-5-5' }}
+          ANTENNA_MONTHLY_BUDGET_USD: ${{ vars.ANTENNA_MONTHLY_BUDGET_USD || '10' }}
+          ANTENNA_PRICE_IN_PER_MTOK: ${{ vars.ANTENNA_PRICE_IN_PER_MTOK || '0.10' }}
+          ANTENNA_PRICE_OUT_PER_MTOK: ${{ vars.ANTENNA_PRICE_OUT_PER_MTOK || '0.50' }}
         run: |
           if [ "${{ github.event.inputs.dry }}" = "true" ]; then python3 src/score.py --dry; else python3 src/score.py; fi
       - name: commit

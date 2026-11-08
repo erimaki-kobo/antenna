@@ -28,6 +28,11 @@ API = "https://api.anthropic.com/v1/messages"
 MODEL = os.environ.get("ANTENNA_MODEL", "claude-haiku-5-5")
 MAX_ITEMS = int(os.environ.get("ANTENNA_MAX_ITEMS", "900"))
 BATCH = 15
+# 予算（このリポジトリのAPIキーの分だけ。他のプロジェクトのキーは別に数える）
+BUDGET_USD = float(os.environ.get("ANTENNA_MONTHLY_BUDGET_USD", "10"))
+PRICE_IN = float(os.environ.get("ANTENNA_PRICE_IN_PER_MTOK", "0.10"))    # claude-haiku-5-5、プロンプト10万トークン以下
+PRICE_OUT = float(os.environ.get("ANTENNA_PRICE_OUT_PER_MTOK", "0.50"))
+USAGE = {"in": 0, "out": 0, "calls": 0}
 BOXES = ["main", "money", "world", "drop"]
 BOX_JA = {"main": "主軸に関係（LLM推論・GPU・Python・再現性・トークナイザ）", "money": "金の匂い（誰かが払い始めた・困って探している）", "world": "意外・知らない話（主軸と無関係でよい）", "drop": "捨てる"}
 
@@ -83,6 +88,44 @@ def prefilter(items: list[dict]) -> list[dict]:
     return kept
 
 
+def cost(tin: int, tout: int) -> float:
+    return tin / 1e6 * PRICE_IN + tout / 1e6 * PRICE_OUT
+
+
+def month_usage(data_dir: Path, today: dt.date) -> dict:
+    """今月の使用量（usage.jsonl の合計）と、1記事あたりの平均費用。"""
+    p = data_dir / "usage.jsonl"
+    tot = {"usd": 0.0, "items": 0, "in": 0, "out": 0, "runs": 0}
+    if p.exists():
+        for line in p.open(encoding="utf-8"):
+            try:
+                r = json.loads(line)
+            except Exception:
+                continue
+            if not str(r.get("day", "")).startswith(today.strftime("%Y-%m")):
+                continue
+            tot["usd"] += r.get("usd", 0.0); tot["items"] += r.get("items", 0)
+            tot["in"] += r.get("in", 0); tot["out"] += r.get("out", 0); tot["runs"] += 1
+    tot["per_item"] = (tot["usd"] / tot["items"]) if tot["items"] else None
+    return tot
+
+
+def pace_limit(data_dir: Path, today: dt.date) -> tuple[int, dict]:
+    """月の予算を残りの日数で割って、今日採点してよい記事数を決める。"""
+    m = month_usage(data_dir, today)
+    import calendar as _cal
+    days_in_month = _cal.monthrange(today.year, today.month)[1]
+    days_left = days_in_month - today.day + 1
+    remaining = max(0.0, BUDGET_USD - m["usd"])
+    daily = remaining / days_left
+    per_item = m["per_item"] or 0.0002  # 実績が無い月初の仮の値（15件で入力約2,400・出力約1,200トークンの見積もりの約4倍。安全側）
+    allowed = int(daily / per_item) if per_item > 0 else MAX_ITEMS
+    info = {"budget": BUDGET_USD, "used": round(m["usd"], 4), "remaining": round(remaining, 4),
+            "days_left": days_left, "daily": round(daily, 4), "per_item": round(per_item, 6),
+            "allowed": allowed, "month_items": m["items"], "month_runs": m["runs"]}
+    return allowed, info
+
+
 def call_claude(batch: list[dict]) -> list[dict]:
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
@@ -103,6 +146,10 @@ def call_claude(batch: list[dict]) -> list[dict]:
             continue
         resp.raise_for_status()
         data = resp.json()
+        u = data.get("usage", {})
+        USAGE["in"] += int(u.get("input_tokens", 0)) + int(u.get("cache_read_input_tokens", 0) or 0) + int(u.get("cache_creation_input_tokens", 0) or 0)
+        USAGE["out"] += int(u.get("output_tokens", 0))
+        USAGE["calls"] += 1
         text = "".join(b.get("text", "") for b in data.get("content", []))
         return parse_array(text, truncated=(data.get("stop_reason") == "max_tokens"))
     raise RuntimeError("Claude API が応答しない")
@@ -173,9 +220,16 @@ def rank(r: dict) -> float:
     return r.get("novelty", 1) * 100 + (r.get("score") or 0) + 2 * (r.get("comments") or 0)
 
 
-def write_digest_md(day: str, items: list[dict], path: Path, status: dict | None):
+def pace_line(p: dict | None) -> str:
+    if not p:
+        return ""
+    return (f"API使用量（このリポジトリのキー分）：今月 ${p.get('used_after', p['used'])} ／ 予算 ${p['budget']}"
+            f"（今日 ${p.get('today_usd', 0)}、残り{p['days_left']}日で1日 ${p['daily']} まで、上限 {p['allowed']} 件／日）")
+
+
+def write_digest_md(day: str, items: list[dict], path: Path, status: dict | None, pace: dict | None = None):
     L = [f"# アンテナ ダイジェスト {day}", "",
-         f"集めた {len(items)} 件を採点。箱ごとに上位。全件は末尾。採点モデル {MODEL}。", ""]
+         f"集めた {len(items)} 件を採点。箱ごとに上位。全件は末尾。採点モデル {MODEL}。", pace_line(pace), ""]
     if status:
         failed = [k for k, v in status.get("sources", {}).items() if not v.get("ok")]
         L.append(f"直近の収集: {status.get('run_at','')} 新着 {status.get('new_total','?')} 件。取れなかった情報源: {', '.join(failed) if failed else 'なし'}")
@@ -211,9 +265,9 @@ def esc(s):
     return html.escape(str(s or ""))
 
 
-def write_digest_html(day: str, items: list[dict], path: Path):
+def write_digest_html(day: str, items: list[dict], path: Path, pace: dict | None = None):
     H = [f"<!doctype html><html lang='ja'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='robots' content='noindex'><title>アンテナ {day}</title><style>{CSS}</style></head><body>",
-         f"<nav><a href='./'>一覧</a></nav><h1>アンテナ {day}</h1><p class='small'>{len(items)}件を採点。左の色：橙＝新しい、灰＝予想の範囲。見出しをチャットに貼れば掘ります。</p>"]
+         f"<nav><a href='./'>一覧</a></nav><h1>アンテナ {day}</h1><p class='small'>{len(items)}件を採点。左の色：橙＝新しい、灰＝予想の範囲。見出しをチャットに貼れば掘ります。</p><p class='small'>{esc(pace_line(pace))}</p>"]
     for box in ["main", "money", "world"]:
         rs = sorted([r for r in items if r.get("box") == box], key=rank, reverse=True)
         H.append(f"<h2>{esc(BOX_JA[box])}（{len(rs)}）</h2>")
@@ -261,7 +315,14 @@ def main() -> int:
         p.mkdir(parents=True, exist_ok=True)
 
     items = prefilter(load_recent(data))
-    print(f"items={len(items)}")
+    today = dt.date.fromisoformat(a.day)
+    allowed, pace = pace_limit(data, today)
+    if not a.dry and len(items) > allowed:
+        # 数字の大きい順に残す（prefilter と同じ基準）
+        items.sort(key=lambda r: ((r.get("score") or 0) + 2 * (r.get("comments") or 0)), reverse=True)
+        print(f"pace: {len(items)} -> {allowed} items (budget ${BUDGET_USD}/month)")
+        items = items[:max(0, allowed)]
+    print(f"items={len(items)} pace={pace}")
     if a.dry:
         for r in items:
             r.update({"box": r.get("box_hint", "world") if r.get("box_hint") != "jp" else "world", "ja": r["title"][:40], "novelty": 2, "kobo": "", "why": "dry"})
@@ -272,12 +333,18 @@ def main() -> int:
         with (data / "scored" / f"{a.day}.jsonl").open("w", encoding="utf-8") as f:
             for r in items:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
+        run_usd = cost(USAGE["in"], USAGE["out"])
+        with (data / "usage.jsonl").open("a", encoding="utf-8") as f:
+            f.write(json.dumps({"day": a.day, "model": MODEL, "items": len(items), "calls": USAGE["calls"],
+                                "in": USAGE["in"], "out": USAGE["out"], "usd": round(run_usd, 6)}, ensure_ascii=False) + "\n")
+        pace["today_usd"] = round(run_usd, 4)
+        pace["used_after"] = round(pace["used"] + run_usd, 4)
     status = None
     sp = data / "status.json"
     if sp.exists():
         status = json.loads(sp.read_text(encoding="utf-8"))
-    write_digest_md(a.day, items, digest / f"{a.day}.md", status)
-    write_digest_html(a.day, items, docs / f"{a.day}.html")
+    write_digest_md(a.day, items, digest / f"{a.day}.md", status, None if a.dry else pace)
+    write_digest_html(a.day, items, docs / f"{a.day}.html", None if a.dry else pace)
     write_index(docs)
     counts = {b: sum(1 for r in items if r.get("box") == b) for b in BOXES}
     print("boxes=", counts)
