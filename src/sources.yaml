@@ -1,0 +1,283 @@
+# アンテナの情報源。type: rss | json | html。
+# 取れなくなったものは enabled: false にする（消さない。履歴のため）。
+# box_hint は採点の助け（main=主軸に近い, money=金の流れ, world=世の中, jp=日本）。
+sources:
+  # --- 技術の今 ---
+  - id: hn_front
+    name: Hacker News front page
+    type: json
+    url: https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=50
+    parser: hn_algolia
+    box_hint: main
+  - id: hn_show
+    name: Show HN (new)
+    type: json
+    url: https://hn.algolia.com/api/v1/search_by_date?tags=show_hn&hitsPerPage=50
+    parser: hn_algolia
+    box_hint: money
+  - id: hn_ask
+    name: Ask HN (new)
+    type: json
+    url: https://hn.algolia.com/api/v1/search_by_date?tags=ask_hn&hitsPerPage=50
+    parser: hn_algolia
+    box_hint: world
+  - id: lobsters
+    name: lobste.rs newest
+    type: json
+    url: https://lobste.rs/newest.json
+    parser: lobsters
+    box_hint: main
+  - id: gh_trending
+    name: GitHub Trending (daily)
+    type: html
+    url: https://github.com/trending?since=daily
+    parser: gh_trending
+    box_hint: main
+  - id: gh_trending_python
+    name: GitHub Trending Python (daily)
+    type: html
+    url: https://github.com/trending/python?since=daily
+    parser: gh_trending
+    box_hint: main
+  - id: rel_vllm
+    name: vLLM releases
+    type: rss
+    url: https://github.com/vllm-project/vllm/releases.atom
+    box_hint: main
+  - id: rel_llamacpp
+    name: llama.cpp releases
+    type: rss
+    url: https://github.com/ggml-org/llama.cpp/releases.atom
+    box_hint: main
+  - id: rel_sglang
+    name: SGLang releases
+    type: rss
+    url: https://github.com/sgl-project/sglang/releases.atom
+    box_hint: main
+  - id: rel_ollama
+    name: Ollama releases
+    type: rss
+    url: https://github.com/ollama/ollama/releases.atom
+    box_hint: main
+  - id: rel_pytorch
+    name: PyTorch releases
+    type: rss
+    url: https://github.com/pytorch/pytorch/releases.atom
+    box_hint: main
+  - id: rel_trtllm
+    name: TensorRT-LLM releases
+    type: rss
+    url: https://github.com/NVIDIA/TensorRT-LLM/releases.atom
+    box_hint: main
+  - id: hf_models
+    name: Hugging Face new models
+    type: json
+    url: https://huggingface.co/api/models?sort=createdAt&direction=-1&limit=50
+    parser: hf_models
+    box_hint: main
+  - id: arxiv_cl
+    name: arXiv cs.CL
+    type: rss
+    url: https://rss.arxiv.org/rss/cs.CL
+    box_hint: main
+  - id: arxiv_dc
+    name: arXiv cs.DC
+    type: rss
+    url: https://rss.arxiv.org/rss/cs.DC
+    box_hint: main
+  - id: arxiv_pf
+    name: arXiv cs.PF
+    type: rss
+    url: https://rss.arxiv.org/rss/cs.PF
+    box_hint: main
+  - id: devto_ai
+    name: dev.to (ai)
+    type: json
+    url: https://dev.to/api/articles?tag=ai&per_page=30
+    parser: devto
+    box_hint: main
+  - id: devto_python
+    name: dev.to (python)
+    type: json
+    url: https://dev.to/api/articles?tag=python&per_page=30
+    parser: devto
+    box_hint: main
+  - id: vllm_discuss
+    name: discuss.vllm.ai latest
+    type: json
+    url: https://discuss.vllm.ai/latest.json
+    parser: discourse
+    box_hint: main
+  # --- 人が困っていること ---
+  - id: so_vllm
+    name: Stack Overflow (vllm, llama.cpp, ollama)
+    type: json
+    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=vllm;llama.cpp;ollama&site=stackoverflow&pagesize=50
+    parser: stackexchange
+    box_hint: main
+  - id: so_cuda
+    name: Stack Overflow (cuda, pytorch)
+    type: json
+    url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=cuda;pytorch&site=stackoverflow&pagesize=50
+    parser: stackexchange
+    box_hint: main
+  - id: r_localllama
+    name: r/LocalLLaMA new
+    type: json
+    url: https://www.reddit.com/r/LocalLLaMA/new.json?limit=50
+    parser: reddit
+    box_hint: main
+  - id: r_ml
+    name: r/MachineLearning new
+    type: json
+    url: https://www.reddit.com/r/MachineLearning/new.json?limit=30
+    parser: reddit
+    box_hint: main
+  - id: r_selfhosted
+    name: r/selfhosted new
+    type: json
+    url: https://www.reddit.com/r/selfhosted/new.json?limit=30
+    parser: reddit
+    box_hint: world
+  - id: r_sideproject
+    name: r/SideProject new
+    type: json
+    url: https://www.reddit.com/r/SideProject/new.json?limit=30
+    parser: reddit
+    box_hint: money
+  - id: r_smallbusiness
+    name: r/smallbusiness new
+    type: json
+    url: https://www.reddit.com/r/smallbusiness/new.json?limit=30
+    parser: reddit
+    box_hint: money
+  - id: r_entrepreneur
+    name: r/Entrepreneur new
+    type: json
+    url: https://www.reddit.com/r/Entrepreneur/new.json?limit=30
+    parser: reddit
+    box_hint: money
+  - id: r_indiehackers
+    name: r/indiehackers new
+    type: json
+    url: https://www.reddit.com/r/indiehackers/new.json?limit=30
+    parser: reddit
+    box_hint: money
+  - id: r_japanlife
+    name: r/japanlife new
+    type: json
+    url: https://www.reddit.com/r/japanlife/new.json?limit=30
+    parser: reddit
+    box_hint: jp
+  - id: r_homelab
+    name: r/homelab new
+    type: json
+    url: https://www.reddit.com/r/homelab/new.json?limit=30
+    parser: reddit
+    box_hint: world
+  - id: gh_issues_vllm
+    name: vLLM issues (new)
+    type: json
+    url: https://api.github.com/repos/vllm-project/vllm/issues?state=open&sort=created&direction=desc&per_page=50
+    parser: gh_issues
+    box_hint: main
+  - id: gh_issues_llamacpp
+    name: llama.cpp issues (new)
+    type: json
+    url: https://api.github.com/repos/ggml-org/llama.cpp/issues?state=open&sort=created&direction=desc&per_page=50
+    parser: gh_issues
+    box_hint: main
+  # --- 金の流れ ---
+  - id: producthunt
+    name: Product Hunt
+    type: rss
+    url: https://www.producthunt.com/feed
+    box_hint: money
+  - id: indiehackers
+    name: Indie Hackers
+    type: rss
+    url: https://www.indiehackers.com/feed.xml
+    box_hint: money
+  - id: freelancer_rss
+    name: Freelancer.com projects (python)
+    type: rss
+    url: https://www.freelancer.com/rss.xml?keyword=python
+    box_hint: money
+  - id: kaggle
+    name: Kaggle competitions
+    type: json
+    url: https://www.kaggle.com/api/v1/competitions/list?sortBy=latestDeadline
+    parser: kaggle
+    box_hint: money
+    enabled: false   # 認証が要るかもしれない。初回実行で確かめてから
+  # --- 日本 ---
+  - id: zenn
+    name: Zenn feed
+    type: rss
+    url: https://zenn.dev/feed
+    box_hint: jp
+  - id: qiita
+    name: Qiita new items
+    type: json
+    url: https://qiita.com/api/v2/items?per_page=50
+    parser: qiita
+    box_hint: jp
+  - id: hatena_it
+    name: はてなブックマーク テクノロジー
+    type: rss
+    url: https://b.hatena.ne.jp/hotentry/it.rss
+    box_hint: jp
+  - id: nhk_main
+    name: NHK 主要ニュース
+    type: rss
+    url: https://www.nhk.or.jp/rss/news/cat0.xml
+    box_hint: jp
+  - id: nhk_biz
+    name: NHK ビジネス
+    type: rss
+    url: https://www.nhk.or.jp/rss/news/cat5.xml
+    box_hint: jp
+  - id: jnet21
+    name: J-Net21 新着
+    type: rss
+    url: https://j-net21.smrj.go.jp/rss/news.xml
+    box_hint: jp
+  # --- 世の中（主軸と無関係） ---
+  - id: gtrends_jp
+    name: Google Trends 急上昇（日本）
+    type: rss
+    url: https://trends.google.com/trending/rss?geo=JP
+    box_hint: world
+  - id: gtrends_us
+    name: Google Trends 急上昇（米国）
+    type: rss
+    url: https://trends.google.com/trending/rss?geo=US
+    box_hint: world
+  - id: wiki_top_ja
+    name: Wikipedia 日本語 閲覧上位（前日）
+    type: json
+    url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/ja.wikipedia/all-access/{Y}/{m}/{d_yesterday}
+    parser: wiki_top
+    box_hint: world
+  - id: wiki_top_en
+    name: Wikipedia 英語 閲覧上位（前日）
+    type: json
+    url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/{Y}/{m}/{d_yesterday}
+    parser: wiki_top
+    box_hint: world
+  - id: openai_news
+    name: OpenAI news
+    type: rss
+    url: https://openai.com/news/rss.xml
+    box_hint: main
+  - id: google_ai_blog
+    name: Google AI blog
+    type: rss
+    url: https://blog.google/technology/ai/rss/
+    box_hint: main
+  - id: anthropic_news
+    name: Anthropic news
+    type: rss
+    url: https://www.anthropic.com/rss.xml
+    box_hint: main
+    enabled: false   # 公式RSSの有無が未確認。初回実行で確かめる

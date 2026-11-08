@@ -1,0 +1,51 @@
+name: digest
+# アンテナ②：毎朝、直近24時間を Claude API で採点して digest/ と docs/ を書き、Pages に出す
+
+on:
+  schedule:
+    - cron: "40 21 * * *"   # UTC 21:40 = 日本時間 6:40
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: "APIを呼ばない検査（true/false）"
+        default: "false"
+
+concurrency:
+  group: antenna-data
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q -r src/requirements.txt
+      - name: score
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTENNA_MODEL: ${{ vars.ANTENNA_MODEL || 'claude-haiku-5-5' }}
+        run: |
+          if [ "${{ github.event.inputs.dry }}" = "true" ]; then python3 src/score.py --dry; else python3 src/score.py; fi
+      - name: commit
+        run: |
+          git config user.name "antenna-bot"
+          git config user.email "antenna-bot@users.noreply.github.com"
+          git add data/ digest/ docs/
+          git diff --cached --quiet && echo "no changes" || git commit -m "digest $(date -u +%Y-%m-%d)"
+          git pull --rebase --autostash || true
+          git push
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: deploy
+        uses: actions/deploy-pages@v4
