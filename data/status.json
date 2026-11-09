@@ -1,59 +1,57 @@
 {
- "run_at": "2026-11-09T12:59:45+09:00",
+ "run_at": "2026-11-09T16:32:02+09:00",
  "sources": {
   "hn_front": {
    "ok": true,
    "got": 30,
-   "new": 5,
+   "new": 9,
    "sec": 0.3
   },
   "hn_show": {
    "ok": true,
    "got": 50,
-   "new": 6,
+   "new": 9,
    "sec": 0.3
   },
   "hn_ask": {
    "ok": true,
    "got": 50,
-   "new": 4,
-   "sec": 0.4
+   "new": 2,
+   "sec": 0.3
   },
   "lobsters": {
    "ok": true,
    "got": 25,
-   "new": 1,
-   "sec": 0.4
+   "new": 2,
+   "sec": 0.5
   },
   "gh_trending": {
-   "ok": true,
-   "got": 9,
-   "new": 0,
-   "sec": 1.0
+   "ok": false,
+   "error": "HTTPError: 504 Server Error: Gateway Time-out for url: https://github.com/trending?since=daily",
+   "sec": 0.2
   },
   "gh_trending_python": {
-   "ok": true,
-   "got": 11,
-   "new": 0,
-   "sec": 0.9
+   "ok": false,
+   "error": "HTTPError: 504 Server Error: Gateway Time-out for url: https://github.com/trending/python?since=daily",
+   "sec": 11.2
   },
   "rel_vllm": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 1.2
+   "sec": 1.6
   },
   "rel_llamacpp": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.8
+   "sec": 0.9
   },
   "rel_sglang": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 4.2
+   "sec": 3.4
   },
   "rel_ollama": {
    "ok": true,
@@ -64,56 +62,56 @@
   "rel_pytorch": {
    "ok": true,
    "got": 10,
-   "new": 3,
-   "sec": 1.4
+   "new": 5,
+   "sec": 1.7
   },
   "rel_trtllm": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 3.3
+   "sec": 3.8
   },
   "hf_models": {
    "ok": true,
    "got": 50,
-   "new": 48,
+   "new": 50,
    "sec": 0.1
   },
   "arxiv_cl": {
    "ok": true,
-   "got": 0,
-   "new": 0,
-   "sec": 0.1
+   "got": 80,
+   "new": 80,
+   "sec": 0.2
   },
   "arxiv_dc": {
    "ok": true,
-   "got": 0,
-   "new": 0,
-   "sec": 0.1
+   "got": 39,
+   "new": 38,
+   "sec": 0.4
   },
   "arxiv_pf": {
    "ok": true,
-   "got": 0,
-   "new": 0,
+   "got": 11,
+   "new": 6,
    "sec": 0.1
   },
   "devto_ai": {
    "ok": true,
    "got": 30,
-   "new": 13,
-   "sec": 0.1
+   "new": 22,
+   "sec": 0.2
   },
   "devto_python": {
    "ok": true,
    "got": 30,
-   "new": 24,
+   "new": 16,
    "sec": 0.1
   },
   "vllm_discuss": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.3
   },
   "so_vllm": {
    "ok": true,
@@ -147,33 +145,33 @@
   },
   "gh_issues_vllm": {
    "ok": true,
-   "got": 14,
-   "new": 4,
+   "got": 7,
+   "new": 3,
    "sec": 0.7
   },
   "gh_issues_llamacpp": {
    "ok": true,
    "got": 15,
    "new": 1,
-   "sec": 0.6
+   "sec": 0.8
   },
   "producthunt": {
    "ok": true,
    "got": 50,
-   "new": 4,
-   "sec": 0.2
+   "new": 7,
+   "sec": 0.1
   },
   "freelancer_rss": {
    "ok": true,
    "got": 20,
-   "new": 0,
-   "sec": 0.3
+   "new": 6,
+   "sec": 0.2
   },
   "zenn": {
    "ok": true,
    "got": 20,
-   "new": 2,
-   "sec": 0.2
+   "new": 0,
+   "sec": 0.1
   },
   "qiita": {
    "ok": true,
@@ -184,50 +182,45 @@
   "hatena_it": {
    "ok": true,
    "got": 30,
-   "new": 9,
-   "sec": 0.3
+   "new": 12,
+   "sec": 0.2
   },
   "nhk_main": {
    "ok": true,
    "got": 7,
-   "new": 6,
-   "sec": 0.8
+   "new": 5,
+   "sec": 0.7
   },
   "nhk_biz": {
    "ok": true,
    "got": 80,
-   "new": 2,
-   "sec": 0.2
+   "new": 3,
+   "sec": 0.1
   },
   "gtrends_jp": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.3
+   "sec": 0.4
   },
   "gtrends_us": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.3
-  },
-  "wiki_top_en": {
-   "ok": false,
-   "error": "HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2026/11/07",
-   "sec": 0.1
+   "sec": 0.2
   },
   "openai_news": {
    "ok": true,
    "got": 80,
    "new": 0,
-   "sec": 0.3
+   "sec": 0.4
   },
   "google_ai_blog": {
    "ok": true,
    "got": 20,
    "new": 0,
-   "sec": 0.3
+   "sec": 0.4
   }
  },
- "new_total": 182
+ "new_total": 326
 }
