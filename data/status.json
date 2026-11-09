@@ -1,83 +1,83 @@
 {
- "run_at": "2026-11-10T01:08:04+09:00",
+ "run_at": "2026-11-10T03:59:12+09:00",
  "sources": {
   "hn_front": {
    "ok": true,
    "got": 30,
-   "new": 7,
+   "new": 16,
    "sec": 0.3
   },
   "hn_show": {
    "ok": true,
    "got": 50,
-   "new": 30,
-   "sec": 0.5
+   "new": 24,
+   "sec": 0.3
   },
   "hn_ask": {
    "ok": true,
    "got": 50,
    "new": 6,
-   "sec": 6.4
+   "sec": 0.3
   },
   "lobsters": {
    "ok": true,
    "got": 25,
-   "new": 1,
+   "new": 3,
    "sec": 0.4
   },
   "gh_trending": {
    "ok": true,
    "got": 11,
    "new": 0,
-   "sec": 1.1
+   "sec": 1.2
   },
   "gh_trending_python": {
    "ok": true,
    "got": 15,
    "new": 0,
-   "sec": 1.2
+   "sec": 1.5
   },
   "rel_vllm": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 1.6
+   "sec": 1.7
   },
   "rel_llamacpp": {
    "ok": true,
    "got": 10,
-   "new": 3,
+   "new": 4,
    "sec": 0.8
   },
   "rel_sglang": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 2.9
+   "sec": 3.7
   },
   "rel_ollama": {
    "ok": true,
    "got": 10,
-   "new": 1,
+   "new": 0,
    "sec": 0.5
   },
   "rel_pytorch": {
    "ok": true,
    "got": 10,
-   "new": 3,
-   "sec": 1.7
+   "new": 2,
+   "sec": 1.5
   },
   "rel_trtllm": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 2.9
+   "sec": 3.4
   },
   "hf_models": {
    "ok": true,
    "got": 50,
    "new": 49,
-   "sec": 0.2
+   "sec": 0.1
   },
   "arxiv_cl": {
    "ok": true,
@@ -100,98 +100,93 @@
   "devto_ai": {
    "ok": true,
    "got": 30,
-   "new": 14,
-   "sec": 0.2
+   "new": 10,
+   "sec": 0.1
   },
   "devto_python": {
    "ok": true,
    "got": 30,
-   "new": 16,
-   "sec": 0.2
+   "new": 18,
+   "sec": 0.1
   },
   "vllm_discuss": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.2
-  },
-  "so_vllm": {
-   "ok": true,
-   "got": 30,
-   "new": 0,
    "sec": 0.3
   },
+  "so_vllm": {
+   "ok": false,
+   "error": "HTTPError: 521 Server Error: <none> for url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=vllm&site=stackoverflow&pagesize=30",
+   "sec": 1.2
+  },
   "so_ollama": {
-   "ok": true,
-   "got": 30,
-   "new": 0,
+   "ok": false,
+   "error": "HTTPError: 521 Server Error: <none> for url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=ollama&site=stackoverflow&pagesize=30",
    "sec": 0.2
   },
   "so_llamacpp": {
-   "ok": true,
-   "got": 30,
-   "new": 0,
+   "ok": false,
+   "error": "HTTPError: 521 Server Error: <none> for url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=llama-cpp-python&site=stackoverflow&pagesize=30",
    "sec": 0.2
   },
   "so_cuda": {
-   "ok": true,
-   "got": 50,
-   "new": 0,
-   "sec": 0.2
+   "ok": false,
+   "error": "HTTPError: 521 Server Error: <none> for url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=cuda&site=stackoverflow&pagesize=50",
+   "sec": 0.1
   },
   "so_pytorch": {
-   "ok": true,
-   "got": 50,
-   "new": 0,
-   "sec": 0.2
+   "ok": false,
+   "error": "HTTPError: 521 Server Error: <none> for url: https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&tagged=pytorch&site=stackoverflow&pagesize=50",
+   "sec": 0.1
   },
   "gh_issues_vllm": {
    "ok": true,
-   "got": 7,
-   "new": 3,
-   "sec": 0.8
+   "got": 6,
+   "new": 1,
+   "sec": 0.7
   },
   "gh_issues_llamacpp": {
    "ok": true,
    "got": 16,
-   "new": 6,
-   "sec": 0.8
+   "new": 2,
+   "sec": 0.7
   },
   "producthunt": {
    "ok": true,
    "got": 50,
    "new": 0,
-   "sec": 0.1
-  },
-  "freelancer_rss": {
-   "ok": true,
-   "got": 20,
-   "new": 5,
    "sec": 0.2
   },
-  "zenn": {
+  "freelancer_rss": {
    "ok": true,
    "got": 20,
    "new": 1,
    "sec": 0.3
   },
+  "zenn": {
+   "ok": true,
+   "got": 20,
+   "new": 0,
+   "sec": 0.2
+  },
   "qiita": {
    "ok": true,
    "got": 50,
-   "new": 44,
-   "sec": 1.8
+   "new": 19,
+   "sec": 2.3
   },
   "hatena_it": {
    "ok": true,
    "got": 30,
-   "new": 10,
+   "new": 4,
    "sec": 0.2
   },
   "nhk_main": {
    "ok": true,
    "got": 7,
    "new": 0,
-   "sec": 0.8
+   "sec": 0.7
   },
   "nhk_biz": {
    "ok": true,
@@ -203,13 +198,13 @@
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.7
+   "sec": 0.3
   },
   "gtrends_us": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.1
   },
   "openai_news": {
    "ok": true,
@@ -221,8 +216,8 @@
    "ok": true,
    "got": 20,
    "new": 0,
-   "sec": 0.4
+   "sec": 0.3
   }
  },
- "new_total": 199
+ "new_total": 159
 }

@@ -8,3 +8,4 @@
 {"run_at": "2026-11-09T19:05:08+09:00", "new_total": 216, "failed": []}
 {"run_at": "2026-11-09T22:19:19+09:00", "new_total": 225, "failed": []}
 {"run_at": "2026-11-10T01:08:04+09:00", "new_total": 199, "failed": []}
+{"run_at": "2026-11-10T03:59:12+09:00", "new_total": 159, "failed": ["so_vllm", "so_ollama", "so_llamacpp", "so_cuda", "so_pytorch"]}
