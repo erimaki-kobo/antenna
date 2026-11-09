@@ -289,13 +289,13 @@ sources:
     parser: wiki_top
     box_hint: world
     enabled: false   # 11/9 2日前でも404。エンドポイントを確かめる
-    enabled: false   # 11/9 2日前でも404。エンドポイントを確かめる
   - id: wiki_top_en
     name: Wikipedia 英語 閲覧上位（2日前。前日分は未集計のことがある）
     type: json
     url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/{Y}/{m}/{d_2ago}
     parser: wiki_top
     box_hint: world
+    enabled: false   # 11/9 2日前でも404。エンドポイントを確かめる
   - id: openai_news
     name: OpenAI news
     type: rss

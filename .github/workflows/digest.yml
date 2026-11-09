@@ -44,7 +44,7 @@ jobs:
           git config user.email "antenna-bot@users.noreply.github.com"
           git add data/ digest/ docs/
           rm -rf digest-dry docs-dry
-          git diff --cached --quiet && echo "no changes" || git commit -m "digest $(date -u +%Y-%m-%d)"
+          git diff --cached --quiet && echo "no changes" || git commit -m "digest $(TZ=Asia/Tokyo date +%Y-%m-%d)"
           git pull --rebase --autostash || true
           git push
       - uses: actions/configure-pages@v5
