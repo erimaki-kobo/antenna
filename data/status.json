@@ -1,65 +1,65 @@
 {
- "run_at": "2026-11-12T12:59:21+09:00",
+ "run_at": "2026-11-12T16:26:13+09:00",
  "sources": {
   "hn_front": {
    "ok": true,
    "got": 30,
-   "new": 5,
+   "new": 6,
    "sec": 0.3
   },
   "hn_show": {
    "ok": true,
    "got": 50,
-   "new": 13,
+   "new": 18,
    "sec": 0.4
   },
   "hn_ask": {
    "ok": true,
    "got": 50,
-   "new": 1,
+   "new": 4,
    "sec": 0.4
   },
   "lobsters": {
    "ok": true,
    "got": 25,
    "new": 0,
-   "sec": 0.5
+   "sec": 0.3
   },
   "gh_trending": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.9
+   "sec": 1.1
   },
   "gh_trending_python": {
    "ok": true,
    "got": 17,
    "new": 0,
-   "sec": 1.0
+   "sec": 1.2
   },
   "rel_vllm": {
    "ok": true,
    "got": 10,
-   "new": 0,
-   "sec": 1.0
+   "new": 1,
+   "sec": 1.1
   },
   "rel_llamacpp": {
    "ok": true,
    "got": 10,
-   "new": 4,
-   "sec": 0.7
+   "new": 6,
+   "sec": 0.9
   },
   "rel_sglang": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 3.3
+   "sec": 4.3
   },
   "rel_ollama": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.5
+   "sec": 0.4
   },
   "rel_pytorch": {
    "ok": true,
@@ -71,73 +71,73 @@
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 3.8
+   "sec": 3.1
   },
   "hf_models": {
    "ok": true,
    "got": 50,
-   "new": 50,
+   "new": 47,
    "sec": 0.1
   },
   "arxiv_cl": {
    "ok": true,
-   "got": 80,
+   "got": 0,
    "new": 0,
-   "sec": 0.4
+   "sec": 0.1
   },
   "arxiv_dc": {
    "ok": true,
-   "got": 29,
+   "got": 0,
    "new": 0,
    "sec": 0.1
   },
   "arxiv_pf": {
    "ok": true,
-   "got": 6,
+   "got": 0,
    "new": 0,
    "sec": 0.1
   },
   "devto_ai": {
    "ok": true,
    "got": 30,
-   "new": 10,
+   "new": 16,
    "sec": 0.1
   },
   "devto_python": {
    "ok": true,
    "got": 30,
-   "new": 23,
-   "sec": 0.2
+   "new": 14,
+   "sec": 0.1
   },
   "vllm_discuss": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.3
+   "sec": 0.2
   },
   "so_vllm": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.1
   },
   "so_ollama": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.1
   },
   "so_llamacpp": {
    "ok": true,
    "got": 30,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.1
   },
   "so_cuda": {
    "ok": true,
    "got": 50,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.1
   },
   "so_pytorch": {
    "ok": true,
@@ -147,82 +147,82 @@
   },
   "gh_issues_vllm": {
    "ok": true,
-   "got": 6,
-   "new": 3,
-   "sec": 0.8
+   "got": 10,
+   "new": 7,
+   "sec": 0.7
   },
   "gh_issues_llamacpp": {
    "ok": true,
    "got": 13,
-   "new": 2,
+   "new": 1,
    "sec": 0.6
   },
   "producthunt": {
    "ok": true,
    "got": 50,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.1
   },
   "freelancer_rss": {
    "ok": true,
    "got": 20,
-   "new": 1,
-   "sec": 0.9
+   "new": 6,
+   "sec": 0.2
   },
   "zenn": {
    "ok": true,
    "got": 20,
-   "new": 3,
+   "new": 2,
    "sec": 0.1
   },
   "qiita": {
    "ok": true,
    "got": 50,
    "new": 50,
-   "sec": 1.6
+   "sec": 1.7
   },
   "hatena_it": {
    "ok": true,
    "got": 30,
-   "new": 11,
+   "new": 10,
    "sec": 0.2
   },
   "nhk_main": {
    "ok": true,
    "got": 7,
-   "new": 5,
-   "sec": 0.5
+   "new": 2,
+   "sec": 0.7
   },
   "nhk_biz": {
    "ok": true,
    "got": 80,
-   "new": 3,
+   "new": 1,
    "sec": 0.2
   },
   "gtrends_jp": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.2
+   "sec": 0.4
   },
   "gtrends_us": {
    "ok": true,
    "got": 10,
    "new": 0,
-   "sec": 0.1
+   "sec": 0.2
   },
   "openai_news": {
    "ok": true,
    "got": 80,
    "new": 0,
-   "sec": 0.6
+   "sec": 0.3
   },
   "google_ai_blog": {
    "ok": true,
    "got": 20,
    "new": 0,
-   "sec": 0.3
+   "sec": 0.2
   }
  },
- "new_total": 191
+ "new_total": 198
 }
