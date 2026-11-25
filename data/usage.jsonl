@@ -16,3 +16,4 @@
 {"day": "2026-11-23", "model": "claude-haiku-5-5", "items": 378, "calls": 26, "in": 66844, "out": 71430, "usd": 0.042399}
 {"day": "2026-11-24", "model": "claude-haiku-5-5", "items": 635, "calls": 43, "in": 115883, "out": 129939, "usd": 0.076558}
 {"day": "2026-11-25", "model": "claude-haiku-5-5", "items": 426, "calls": 29, "in": 77773, "out": 83601, "usd": 0.049578}
+{"day": "2026-11-26", "model": "claude-haiku-5-5", "items": 338, "calls": 23, "in": 59998, "out": 66357, "usd": 0.039178}
